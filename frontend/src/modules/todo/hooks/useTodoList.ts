@@ -1,14 +1,32 @@
+import { useState } from 'react';
+
 import { type TodoItem, type TodoItemId } from '../types';
 
 export function useTodoList() {
-  const items = INITIAL_ITEMS;
+  const [state, setState] = useState({
+    items: INITIAL_ITEMS,
+    nextId: 4,
+  });
+
+  const { items } = state;
 
   const addItem = (item: Omit<TodoItem, 'id'>) => {
-    // TODO
+    setState((state) => ({
+      ...state,
+      items: [{ ...item, id: state.nextId }, ...items],
+      nextId: state.nextId + 1,
+    }));
   };
 
   const setItemIsCompleted = (id: TodoItemId, isCompleted: boolean) => {
-    // TODO
+    setState((state) => ({
+      ...state,
+      items: items.map((item) => {
+        if (id !== item.id) return item;
+
+        return { ...item, isCompleted };
+      }),
+    }));
   };
 
   const removeItem = (id: TodoItemId) => {
