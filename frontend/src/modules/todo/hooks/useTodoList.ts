@@ -2,13 +2,22 @@ import { useState } from 'react';
 
 import { type TodoItem, type TodoItemId } from '../types';
 
+export type State = {
+  items: TodoItem[];
+  nextId: number;
+  filter: (typeof FILTER_STATES)[number];
+};
+
+export const FILTER_STATES = ['all', 'completed', 'not-completed'] as const;
+
 export function useTodoList() {
-  const [state, setState] = useState({
+  const [state, setState] = useState<State>({
     items: INITIAL_ITEMS,
     nextId: 4,
+    filter: FILTER_STATES[0],
   });
 
-  const { items } = state;
+  const { items, filter } = state;
 
   const addItem = (item: Omit<TodoItem, 'id'>) => {
     setState((state) => ({
@@ -30,14 +39,25 @@ export function useTodoList() {
   };
 
   const removeItem = (id: TodoItemId) => {
-    // TODO
+    setState((state) => ({
+      ...state,
+      items: items.filter((todoItem) => todoItem.id !== id),
+    }));
+  };
+
+  const setFilter = (filterIndex: number) => {
+    const filter = FILTER_STATES[filterIndex];
+
+    setState((state) => ({ ...state, filter }));
   };
 
   return {
     items,
+    filter,
     addItem,
     setItemIsCompleted,
     removeItem,
+    setFilter,
   };
 }
 

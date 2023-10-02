@@ -4,6 +4,8 @@
     "prettier": "prettier --write README.md \"{frontend,backend}/src/**/*.{js,jsx,ts,tsx,json,css,scss,graphql}\" \"{frontend,backend}/README.md\""
   },
   "devDependencies": {
+    "@types/react": "^18.2.23",
+    "@types/react-dom": "^18.2.8",
     "prettier": "3.0.3"
   }
 }

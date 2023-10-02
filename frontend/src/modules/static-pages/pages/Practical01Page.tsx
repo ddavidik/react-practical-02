@@ -11,7 +11,7 @@ import {
 const INITIAL_COUNTER = 0;
 
 export function Practical01Page() {
-  const [counter, setCounter] = useState(INITIAL_COUNTER);
+  const [counter, setCounter] = useState<number>(INITIAL_COUNTER);
 
   return (
     <Box>

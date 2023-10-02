@@ -15,11 +15,13 @@ export function AddTodoListForm({ addItem }: AddTodoListFormProps) {
     <form
       onSubmit={(event) => {
         event.preventDefault();
+        if (description === '') return;
+
         addItem({ description, isCompleted: false });
         setDescription('');
       }}
     >
-      <Stack direction="row">
+      <Stack direction="row" sx={{ mb: 3 }}>
         <Input
           type="text"
           placeholder="What shell to be done?"
